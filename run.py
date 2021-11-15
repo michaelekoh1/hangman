@@ -1,12 +1,13 @@
 import random
 import string
 from words import words
+from hangman_stages import stages
 
 def game_starts():
     """The initial stage of the game where a user's name is requested and if he/she would like to commence with the game.
     """
     print(
-        """
+        """stages
         ██   ██  █████  ███    ██  ██████  ███    ███  █████  ███    ██ 
         ██   ██ ██   ██ ████   ██ ██       ████  ████ ██   ██ ████   ██ 
         ███████ ███████ ██ ██  ██ ██   ███ ██ ████ ██ ███████ ██ ██  ██ 
@@ -66,4 +67,37 @@ def hangman():
             print('You have already used that character. Please try again.')
 
         else:
-            print('Invalid character. Please try again.')   
+            print('Invalid character. Please try again.')
+        
+   # gets here when len(word_letters) == 0 or when lives == 0
+    if lives == 0:
+        print(stages[lives])
+        print('You died, sorry. The word was', word)
+        restart_game()
+    else:
+        print('You have guessed the word', word, '\nCongratulations!!')
+        restart_game()
+
+
+def restart_game():
+    """ Gives player option to restart, otherwise returns to title screen """
+    game_restart = False
+
+    while not game_restart:
+        restart = input('Would you like to play Hangman? (Y/N)\n').upper()
+
+        if restart == "Y":
+            game_restart = True
+            hangman()
+
+        elif restart == "N":
+            game_restart = True
+            print('Goodbye!')
+            game_starts()
+
+        else:
+            print('You must select Y or N. Please try again.')
+
+
+if __name__ == "__main__":
+    game_starts()
