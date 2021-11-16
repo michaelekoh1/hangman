@@ -9,14 +9,34 @@ Hangman is a word guessing game which runs on the Code Institute mock terminal o
 ## Table of Contents
 
 ## User Experience
-### User Stories
 
+### User Stories
+1. As a user, I would want to easily start the game.
+2. As a user, I should be able to view my scores while am playing the game.
+3. As a user, I should be able to exit the game on completion of the game. 
+4. The game should be fun to play given the random words (easy and difficult) to guess.
+
+"""Playing the Game
+    all letters are processed in a uppercase mode, to avoid confusion to the user
+    the user start with 7 lives and a score of 0
+        *for each valid letter, the user get 10 points
+        *for each wrong letter, the user losses 5 points
+        * if the user wins the match, the score is multiply by the amount of lives
+        (example, the user won with 20 points and 2 lives, the total score is 40)
+        
 ## Features
 
 ## Testing
 
+The project was manually tested by the following ways:
+- Tested in the local terminal and on the mock terminal on the deployed site of Heroku.
+- Tested the python code through a PEP8 Linter using (http://pep8online.com/) and fixed the errors.
+
 ## Deployment
+
+The site was deployed to GitHub pages using the Code Institute mock terminal on Heroku template.
 
 ## Credits
 
 ## Acknowledgement
+I would like to take this opportunity to thank my mentor Jack Wachira for his great guidance in the accomplishment of this project and the whole learning experience.

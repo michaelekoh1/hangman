@@ -2,10 +2,11 @@ import random
 import string
 from word_list import words
 from hangman_stages import stages
-import os # used to check if file with scores exists
+import os   # used to check if file with scores exists
 
 # name of the file where higHscores will be stored
 score_file = "highscores.txt"
+
 
 def game_starts():
     """The initial stage of the game where a user's name is requested and if
@@ -29,7 +30,7 @@ def game_starts():
     print('\n' * 4)
 
     # asking the user to choose an option
-    option =  str(input('Choose an option from the menu: '))
+    option = str(input('Choose an option from the menu: '))
     if option == "1":
         username = input('What is your name?: ')
         print(f"Hello, {username}. Welcome to The Game of Hangman!")
@@ -39,15 +40,17 @@ def game_starts():
 
     game_starts()
 
+
 def load_scores():
     """ Open the scores file and load the values, return a list with all the values
     inside the file, the list is returned empty if the file cant be found
     """
-    score_list=[]
+    score_list = []
     if os.path.isfile(score_file):
         score_list = [line.rstrip('\n') for line in open(score_file)]
 
     return score_list
+
 
 def show_high_scores():
     """ call function load_scores, and display it in the terminal
@@ -58,8 +61,8 @@ def show_high_scores():
     print('{:*^80}'.format(' HIGHSCORE TABLE ! '))
     print('\n' * 2)
 
-    # itinerate over the scores loaded, and print each row with  score and username
-    sorted_scores = sorted(scores_saved,reverse=True)
+    # itinerate over the scores loaded, print each row with  score and username
+    sorted_scores = sorted(scores_saved, reverse=True)
 
     for elem in sorted_scores:
         score = elem.split(";")[0]
@@ -70,15 +73,15 @@ def show_high_scores():
     # ask the user to press enter to go to main screen
     input("Press Enter to return to main screen  ")
 
+
 def save_score(score, username):
-    """ Load scores from higscore.txt file, add the current score of the user
-    to the list of loaded values then, sort the list and only save the first 10 values
+    """ Load scores from highscore.txt file, add the current score of the user
     """
     scores_saved = load_scores()
 
     scores_saved.append(f"{score};{username}")
 
-    sorted_scores = sorted(scores_saved,reverse=True)
+    sorted_scores = sorted(scores_saved, reverse=True)
 
     with open(score_file, 'w+') as f:
         for x in range(len(sorted_scores)):
@@ -101,15 +104,9 @@ def get_random_word():
     word = random.choice(words)
     return word.upper()
 
-def hangman(username):
-    """Playing the Game
-    all letters are processed in a uppercase mode, to avoid confusion to the user
-    the user start with 7 lives and a score of 0
-        *for each valid letter, the user get 10 points
-        *for each wrong letter, the user losses 5 points
-        * if the user wins the match, the score is multiply by the amount of lives
-        (example, the user won with 20 points and 2 lives, the total score is 40)
 
+def hangman(username):
+    """Playing the Game, all letters are processed in a uppercase mode
     """
     word = get_random_word()
     word_letters = set(word)
@@ -117,7 +114,7 @@ def hangman(username):
     used_letters = set()  # letters the user has guessed
 
     lives = 7
-    score=0
+    score = 0
     while len(word_letters) > 0 and lives > 0:
         clear_terminal()
         print (f"User Name: {username.capitalize()}         Score: {score}")
@@ -148,7 +145,7 @@ def hangman(username):
         else:
             print('Invalid character! Kindly try again.')
 
-   # reaches here when len(word_letters) == 0 or when lives == 0
+   # reaches here when len(word_letters) == 0 or lives == 0
 
     if lives == 0:
         print(stages[lives])
@@ -156,8 +153,8 @@ def hangman(username):
     else:
         print('You have guessed the right word', word, '\nCongratulations!!!')
 
-    if lives>0:
-        score *=lives
+    if lives > 0:
+        score * = lives
     print (f"You score is: {score}")
     # if score is bigger than 0, then try to save the score
     if score > 0:
@@ -166,7 +163,7 @@ def hangman(username):
 
 
 def restart_game(username):
-    """Player has an option to restart the game or the user returns to the home screen"""
+    """Player has an option to restart the game"""
     game_restart = False
 
     while not game_restart:
