@@ -27,3 +27,24 @@ def game_starts():
     print('{:^80}'.format(' 2: HIGH SCORES '))
     print('{:^80}'.format(' 3: QUIT '))
     print('\n' * 4)
+
+    # asking the user to choose an option
+    option =  str(input('Choose a option: '))
+    if option == "1":
+        username = input('What is your name?: ')
+        print(f"Hello, {username}. Welcome to The Game of Hangman!")
+        hangman(username)
+    elif option == "2":
+        show_high_scores()
+
+    game_starts()
+
+def load_scores():
+    """ Open the scores file and load the values, return a list with all the values
+    inside the file, the list is returned empty if the file cant be found
+    """
+    score_list=[]
+    if os.path.isfile(score_file):
+        score_list = [line.rstrip('\n') for line in open(score_file)]
+
+    return score_list
