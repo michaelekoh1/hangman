@@ -145,8 +145,6 @@ def hangman(username):
         else:
             print('Invalid character! Kindly try again.')
 
-   # reaches here when len(word_letters) == 0 or lives == 0
-
     if lives == 0:
         print(stages[lives])
         print('Your Dead! Sorry. The word was', word)
@@ -154,7 +152,7 @@ def hangman(username):
         print('You have guessed the right word', word, '\nCongratulations!!!')
 
     if lives > 0:
-        score * = lives
+        score *= lives
     print (f"You score is: {score}")
     # if score is bigger than 0, then try to save the score
     if score > 0:
