@@ -29,7 +29,7 @@ def game_starts():
     print('\n' * 4)
 
     # asking the user to choose an option
-    option =  str(input('Choose a option: '))
+    option =  str(input('Choose an option from the menu: '))
     if option == "1":
         username = input('What is your name?: ')
         print(f"Hello, {username}. Welcome to The Game of Hangman!")
