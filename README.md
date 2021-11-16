@@ -1,4 +1,4 @@
-#HANGMAN GAME
+# HANGMAN GAME
 
 Hangman is a word guessing game which runs on the Code Institute mock terminal on Heroku. A player tries to guess a word by guessing letters within a certain number of guesses.
 
