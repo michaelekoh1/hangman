@@ -1,6 +1,6 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+#HANGMAN GAME
 
-Welcome michaelekoh1,
+Hangman is a word guessing game which runs on the Code Institute mock terminal on Heroku. A player tries to guess a word by guessing letters within a certain number of guesses.
 
 This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
 
