@@ -90,3 +90,100 @@ def save_score(score, username):
 def clear_terminal():
     # clear all text in terminal, usefull for linux, macos and windows OS
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# function to get a random word from the list of words
+def get_random_word():
+    """
+    A random word is picked from the list of words for the player to guess.
+    The words are listed in the file words.py
+    """
+    word = random.choice(words)
+    return word.upper()
+
+def hangman(username):
+    """Playing the Game
+    all letters are processed in a uppercase mode, to avoid confusion to the user
+    the user start with 7 lives and a score of 0
+        *for each valid letter, the user get 10 points
+        *for each wrong letter, the user losses 5 points
+        * if the user wins the match, the score is multiply by the amount of lives
+        (example, the user won with 20 points and 2 lives, the total score is 40)
+
+    """
+    word = get_random_word()
+    word_letters = set(word)
+    alphabet = set(string.ascii_uppercase)
+    used_letters = set()  # letters the user has guessed
+
+    lives = 7
+    score=0
+    while len(word_letters) > 0 and lives > 0:
+        clear_terminal()
+        print (f"User Name: {username.capitalize()}         Score: {score}")
+        print('You have', lives, 'lives remaining')
+        print('Letters used: ', ' '.join(used_letters))
+
+        # Current word is (ie W O - D)
+        word_list = [
+            letter if letter in used_letters else '_' for letter in word]
+        print(stages[lives])
+        print('Current word: ', ' '.join(word_list))
+
+        user_letter = input('Guess the letter: ').upper()
+        if user_letter in alphabet - used_letters:
+            used_letters.add(user_letter)
+            if user_letter in word_letters:
+                score += 10
+                word_letters.remove(user_letter)
+
+            else:
+                score -= 5
+                lives = lives - 1  # A life is lost when wrong
+                print('This letter is not in this word.')
+
+        elif user_letter in used_letters:
+            print('You have already used that character. Please try again.')
+
+        else:
+            print('Invalid character! Kindly try again.')
+
+   # reaches here when len(word_letters) == 0 or when lives == 0
+
+    if lives == 0:
+        print(stages[lives])
+        print('Your Dead! Sorry. The word was', word)
+    else:
+        print('You have guessed the right word', word, '\nCongratulations!!!')
+
+    if lives>0:
+        score *=lives
+    print (f"You score is: {score}")
+    # if score is bigger than 0, then try to save the score
+    if score > 0:
+        save_score(score, username)
+    restart_game(username)
+
+
+def restart_game(username):
+    """Player has an option to restart the game or the user returns to the home screen"""
+    game_restart = False
+
+    while not game_restart:
+        restart = input('Would you like to play again? (Y/N): ').upper()
+
+        if restart == "Y":
+            game_restart = True
+            hangman(username)
+
+        elif restart == "N":
+            game_restart = True
+            print('Goodbye! See you soon')
+            game_starts()
+
+        else:
+            print('Select Y or N. Please try again.')
+
+
+if __name__ == "__main__":
+    game_starts()
